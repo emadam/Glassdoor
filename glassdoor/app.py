@@ -268,7 +268,7 @@ ax[1, 1].set_title('Job Ads seniority level count')
 fig.savefig("glassdoor" + np.datetime64(date.today()).astype('str') + ".png")
 
 st.set_page_config(page_title='Data Analyst Job: Market Analysis',
-                   page_icon='job_analysis_fav_icon.webp',
+                   page_icon='favicon.png',
                    layout="wide")
 
 # Remove the menu button from Streamlit
