@@ -22,6 +22,15 @@ def salary_convert(salary):
     else:
         return salary
 
+
+def find_host_ip():
+    cmd = "ipconfig.exe | grep 'vEthernet (WSL)' -A4 | cut -d':' -f 2 | tail -n1 | sed -e 's/\s*//g' > host_ip.txt"
+    os.system(cmd)
+    with open('host_ip.txt') as f:
+        HOST_IP = f.readline()
+        f.close()
+    return HOST_IP.split(sep='\n')[0]
+
 env_path = os.path.join(r'/home/emad/code/emadam/glassdoor/glassdoor/',
                         'db_login.env')
 if os.path.exists(env_path):
@@ -30,6 +39,7 @@ SERVER_NAME = os.getenv('server')
 DB_NAME = os.getenv('database')
 USERNAME = os.getenv("pymssql_username")
 PASSWORD = os.getenv("pymssql_password")
+HOST_IP = find_host_ip()
 
 headers = {
     "User-Agent":
@@ -63,7 +73,7 @@ job_data = job_data.rename(
 job_data['Ad Date'] = pd.to_datetime(job_data['Ad Date'])
 
 try:
-    conn = pymssql.connect(host='172.21.192.1',
+    conn = pymssql.connect(host=HOST_IP,
                            port=1433,
                            server=SERVER_NAME,
                            database=DB_NAME,
@@ -82,7 +92,7 @@ SQL_Query = pd.read_sql_query(
 pd.DataFrame(SQL_Query)
 
 engine = create_engine(
-    f'mssql+pymssql://{USERNAME}:{PASSWORD}@172.21.192.1:1433/{DB_NAME}',
+    f'mssql+pymssql://{USERNAME}:{PASSWORD}@{HOST_IP}:1433/{DB_NAME}',
     pool_pre_ping=True)
 
 job_data.to_sql("jobs_temp", engine, if_exists='replace', index=False)
