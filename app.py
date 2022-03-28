@@ -39,7 +39,7 @@ SERVER_NAME = os.getenv('server')
 DB_NAME = os.getenv('database')
 USERNAME = os.getenv("pymssql_username")
 PASSWORD = os.getenv("pymssql_password")
-HOST_IP = find_host_ip()
+HOST_IP = '172.21.192.1' #find_host_ip()
 
 headers = {
     "User-Agent":
