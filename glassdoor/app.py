@@ -12,7 +12,7 @@ from dotenv import load_dotenv
 from empiricaldist import Cdf
 import seaborn as sns
 from glassdoor.scraper import *
-
+import streamlit as st
 
 def salary_convert(salary):
     if salary == 0:
@@ -266,3 +266,19 @@ ax[1, 1].pie(jobs_stored['Seniority'].value_counts(),
              startangle=0)
 ax[1, 1].set_title('Job Ads seniority level count')
 fig.savefig("glassdoor" + np.datetime64(date.today()).astype('str') + ".png")
+
+st.set_page_config(page_title='Data Analyst Job: Market Analysis',
+                   page_icon='job_analysis_fav_icon.webp',
+                   layout="wide")
+
+# Remove the menu button from Streamlit
+st.markdown(""" <style>
+            MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            </style> """,
+            unsafe_allow_html=True)
+
+
+st.title('Data Analyst Job: Market Analysis')
+st.markdown('Based on job ads on Glassdoor')
+st.image('glassdoor2022-03-28.png', use_column_width='always', output_format='JPEG', caption='Created by EMAD AMINMOGHADAM')
