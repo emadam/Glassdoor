@@ -72,15 +72,13 @@ job_data = job_data.rename(
     })
 job_data['Ad Date'] = pd.to_datetime(job_data['Ad Date'])
 
-try:
-    conn = pymssql.connect(host=HOST_IP,
-                           port=1433,
-                           server=SERVER_NAME,
-                           database=DB_NAME,
-                           user=USERNAME,
-                           password=PASSWORD)
-except pymssql.Error as err:
-    print(("[ERROR] {}".format(err)))
+
+conn = pymssql.connect(host=HOST_IP,
+                        port=1433,
+                        server=SERVER_NAME,
+                        database=DB_NAME,
+                        user=USERNAME,
+                        password=PASSWORD)
 
 cursor = conn.cursor()
 cursor.execute('SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES;')
