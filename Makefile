@@ -54,5 +54,24 @@ pypi_test:
 pypi:
 	@twine upload dist/* -u $(PYPI_USERNAME)
 
-run_streamlit:
-    streamlit run app.py
+# ----------------------------------
+#         HEROKU COMMANDS
+# ----------------------------------
+
+APP_NAME=data-jobanalyst
+
+streamlit:
+	-@streamlit run app.py
+
+heroku_login:
+	-@heroku login
+
+heroku_keys:
+	-@heroku keys:add ~/.ssh/id_ed25519.pub
+
+heroku_create_app:
+	-@heroku create --ssh-git ${APP_NAME} --region eu
+
+deploy_heroku:
+	-@git push heroku master
+	-@heroku ps:scale web=1
