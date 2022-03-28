@@ -63,7 +63,7 @@ job_data = job_data.rename(
 job_data['Ad Date'] = pd.to_datetime(job_data['Ad Date'])
 
 try:
-    conn = pymssql.connect(host='172.23.176.1',
+    conn = pymssql.connect(host='172.21.192.1',
                            port=1433,
                            server=SERVER_NAME,
                            database=DB_NAME,
@@ -82,7 +82,7 @@ SQL_Query = pd.read_sql_query(
 pd.DataFrame(SQL_Query)
 
 engine = create_engine(
-    f'mssql+pymssql://{USERNAME}:{PASSWORD}@172.23.176.1:1433/{DB_NAME}',
+    f'mssql+pymssql://{USERNAME}:{PASSWORD}@172.21.192.1:1433/{DB_NAME}',
     pool_pre_ping=True)
 
 job_data.to_sql("jobs_temp", engine, if_exists='replace', index=False)
@@ -255,3 +255,4 @@ ax[1, 1].pie(jobs_stored['Seniority'].value_counts(),
              shadow=True,
              startangle=0)
 ax[1, 1].set_title('Job Ads seniority level count')
+fig.savefig("glassdoor" + np.datetime64(date.today()).astype('str') + ".png")

@@ -36,3 +36,6 @@ regex
 # db
 sqlalchemy
 pymssql
+
+# frontend
+streamlit
