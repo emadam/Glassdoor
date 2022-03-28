@@ -5,9 +5,12 @@ twine
 wheel>=0.29
 
 # data science
-numpy
-pandas
+numpy>=1.18.5
+pandas>=1.4.1
 scikit-learn
+matplotlib
+seaborn
+empiricaldist
 
 # tests/linter
 black
@@ -20,10 +23,16 @@ yapf
 gcsfs
 google-cloud-storage
 mlflow
-s3fs
+bs4
 
 # utilities
 six>=1.14
 joblib
 memoized-property
 termcolor
+python-dotenv
+regex
+
+# db
+sqlalchemy
+pymssql
