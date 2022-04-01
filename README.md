@@ -5,7 +5,7 @@ This is a personal effort where I researched "Data Analyst" job openings in Melb
 
 ![image](https://github.com/emadam/glassdoor/blob/master/glassdoor2022-03-28.png)
 <br>
-App home(Under construction!): https://data-jobanalyst.herokuapp.com/
+App home: https://data-jobanalyst.herokuapp.com/
    
 
 ### ENV Variables
