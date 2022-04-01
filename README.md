@@ -1,75 +1,40 @@
+
+# 📚 Glassdoor
+
+This is a personal effort where I researched "Data Analyst" job openings in Melbourne. As a result, this project shows minimum and maximum salary of a Data Analyst in Melbourne, Australia according to job advertisements gathered from https://www.glassdoor.com.au/ and saves the results in a SQL database in order to have historical data for further analysis. 
+
 ![image](https://github.com/emadam/glassdoor/blob/master/glassdoor2022-03-28.png)
-# Data analysis
-- Document here the project: glassdoor
-- Description: Project Description
-- Data Source:
-- Type of analysis:
+<br>
+App home(Under construction!): https://data-jobanalyst.herokuapp.com/
+   
 
-Please document the project the better you can.
-
-# Startup the project
-
-The initial setup.
-
-Create virtualenv and install the project:
-```bash
-sudo apt-get install virtualenv python-pip python-dev
-deactivate; virtualenv ~/venv ; source ~/venv/bin/activate ;\
-    pip install pip -U; pip install -r requirements.txt
+### ENV Variables
+Create `.env` file
+```
+touch .env
+```
+Inside `.env`, set these variables.
+```
+server = your_own_server_name
+database = your_own_database_name
+pymssql_username = your_own_sql_username
+pymssql_password = your_own_sql_password
 ```
 
-Unittest test:
-```bash
-make clean install test
-```
+### Data Sources
+- <a href="https://www.glassdoor.com.au/">www.glassdoor.com.au/</a>
 
-Check for glassdoor in gitlab.com/{group}.
-If your project is not set please add it:
 
-- Create a new project on `gitlab.com/{group}/glassdoor`
-- Then populate it:
+## Built With
+- <a href="https://streamlit.io/">Streamlit</a>
+- [Heroku](https://heroku.com/) - Deployment
+- [MSSQL](https://www.microsoft.com/en-au/sql-server/) - Database
 
-```bash
-##   e.g. if group is "{group}" and project_name is "glassdoor"
-git remote add origin git@github.com:{group}/glassdoor.git
-git push -u origin master
-git push -u origin --tags
-```
 
-Functionnal test with a script:
+## Team Members
+- [EMAD AMINMOGHADAM](https://www.linkedin.com/in/emad-aminmoghadam/)
 
-```bash
-cd
-mkdir tmp
-cd tmp
-glassdoor-run
-```
+## Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-# Install
 
-Go to `https://github.com/{group}/glassdoor` to see the project, manage issues,
-setup you ssh public key, ...
-
-Create a python3 virtualenv and activate it:
-
-```bash
-sudo apt-get install virtualenv python-pip python-dev
-deactivate; virtualenv -ppython3 ~/venv ; source ~/venv/bin/activate
-```
-
-Clone the project and install it:
-
-```bash
-git clone git@github.com:{group}/glassdoor.git
-cd glassdoor
-pip install -r requirements.txt
-make clean install test                # install and test
-```
-Functionnal test with a script:
-
-```bash
-cd
-mkdir tmp
-cd tmp
-glassdoor-run
-```
