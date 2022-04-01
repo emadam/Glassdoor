@@ -67,7 +67,7 @@ engine = create_engine(
     f"postgresql://{USERNAME}:{PASSWORD}@{HOST}:5432/{DATABASE}"
 )
 
-job_data.to_sql("job_data", engine, if_exists='replace', index=False)
+job_data.to_sql("job_data", engine, if_exists='append', index=False)
 
 jobs_stored = pd.read_sql("job_data", engine)
 
