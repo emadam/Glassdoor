@@ -64,7 +64,7 @@ job_data = job_data.rename(
 job_data['Ad Date'] = pd.to_datetime(job_data['Ad Date'])
 
 engine = create_engine(
-    f"postgresql://{USERNAME}:{PASSWORD}@ec2-52-18-116-67.eu-west-1.compute.amazonaws.com:5432/{DATABASE}"
+    f"postgresql://{USERNAME}:{PASSWORD}@{HOST}:5432/{DATABASE}"
 )
 
 job_data.to_sql("job_data", engine, if_exists='replace', index=False)
