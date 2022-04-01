@@ -207,4 +207,4 @@ st.markdown(""" <style>
 
 st.title('Data Analyst Job: Market Analysis')
 st.markdown('Based on job ads on Glassdoor')
-st.image('glassdoor2022-03-28.png', use_column_width='always', output_format='JPEG', caption='Created by EMAD AMINMOGHADAM')
+st.image('glassdoor2022-04-01.png', use_column_width='always', output_format='JPEG', caption='Created by EMAD AMINMOGHADAM')
