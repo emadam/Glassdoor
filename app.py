@@ -28,9 +28,9 @@ env_path = os.path.join(r'/home/emad/code/emadam/glassdoor/glassdoor/',
 if os.path.exists(env_path):
     load_dotenv(env_path)
 DATABASE = os.getenv('database')
-DATABASE_URL = os.getenv('database_url')
-USERNAME = os.getenv("username")
-PASSWORD = os.getenv("password")
+USERNAME = os.getenv('username')
+PASSWORD = os.getenv('password')
+HOST = os.getenv('host')
 
 headers = {
     "User-Agent":
@@ -63,7 +63,7 @@ job_data = job_data.rename(
     })
 job_data['Ad Date'] = pd.to_datetime(job_data['Ad Date'])
 
-engine = create_engine(DATABASE_URL)
+engine = create_engine(f"postgresql://{USERNAME}:{PASSWORD}@{HOST}:5432/{DATABASE}")
 
 job_data.to_sql("job_data", engine, if_exists='append', index=False)
 
