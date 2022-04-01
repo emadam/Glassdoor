@@ -8,3 +8,4 @@ raw_data/
 *.env
 host_ip.txt
 db_login.env
+.gitsecret/keys/random_seed
