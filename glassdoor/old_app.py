@@ -23,14 +23,23 @@ def salary_convert(salary):
         return salary
 
 
+def find_host_ip():
+    cmd = "ipconfig.exe | grep 'vEthernet (WSL)' -A4 | cut -d':' -f 2 | tail -n1 | sed -e 's/\s*//g' > host_ip.txt"
+    os.system(cmd)
+    with open('host_ip.txt') as f:
+        HOST_IP = f.readline()
+        f.close()
+    return HOST_IP.split(sep='\n')[0]
+
 env_path = os.path.join(r'/home/emad/code/emadam/glassdoor/glassdoor/',
-                        'postgres_login.env')
+                        'db_login.env')
 if os.path.exists(env_path):
     load_dotenv(env_path)
-DATABASE = os.getenv('database')
-DATABASE_URL = os.getenv('database_url')
-USERNAME = os.getenv("username")
-PASSWORD = os.getenv("password")
+SERVER_NAME = os.getenv('server')
+DB_NAME = os.getenv('database')
+USERNAME = os.getenv("pymssql_username")
+PASSWORD = os.getenv("pymssql_password")
+HOST_IP = find_host_ip()
 
 headers = {
     "User-Agent":
@@ -63,12 +72,77 @@ job_data = job_data.rename(
     })
 job_data['Ad Date'] = pd.to_datetime(job_data['Ad Date'])
 
-engine = create_engine(DATABASE_URL)
 
-job_data.to_sql("job_data", engine, if_exists='append', index=False)
+conn = pymssql.connect(host=HOST_IP,
+                        port=1433,
+                        server=SERVER_NAME,
+                        database=DB_NAME,
+                        user=USERNAME,
+                        password=PASSWORD)
 
-jobs_stored = pd.read_sql("job_data", engine)
+cursor = conn.cursor()
+cursor.execute('SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES;')
+row = cursor.fetchall()
 
+SQL_Query = pd.read_sql_query(
+    '''select *
+        from [Glassdoor].[dbo].[jobs]''', conn)
+pd.DataFrame(SQL_Query)
+
+engine = create_engine(
+    f'mssql+pymssql://{USERNAME}:{PASSWORD}@{HOST_IP}:1433/{DB_NAME}',
+    pool_pre_ping=True)
+
+job_data.to_sql("jobs_temp", engine, if_exists='replace', index=False)
+query = """
+        SELECT * FROM jobs_temp
+        EXCEPT
+        SELECT * FROM jobs;
+    """
+new_entries = pd.read_sql(query, engine)
+
+if ('jobs', ) not in list(row):
+    job_data.to_sql(
+        "jobs",
+        engine,
+        if_exists='replace',
+        index=False,
+        dtype={
+            'Job Title': String(255),
+            'Company': String(255),
+            'Rank': Float(),
+            'Location': String(255),
+            'Salary': String(255),
+            'Ad Date': DATE()
+        })
+else:
+    job_data.to_sql("jobs_temp", engine, if_exists='replace', index=False)
+    query = """
+        SELECT * FROM jobs_temp
+        EXCEPT
+        SELECT * FROM jobs;
+    """
+    new_entries = pd.read_sql(query, engine)
+
+    new_entries.to_sql(
+        "jobs",
+        engine,
+        if_exists='append',
+        index=False,
+        dtype={
+            'Job Title': String(255),
+            'Company': String(255),
+            'Rank': Float(),
+            'Location': String(255),
+            'Salary': String(255),
+            'Ad Date': DATE()
+        })
+
+SQL_Query = pd.read_sql_query(
+    '''select *
+        from [Glassdoor].[dbo].[jobs]''', conn)
+
+jobs_stored = pd.DataFrame(SQL_Query)
 jobs_stored['Ad Date'] = pd.to_datetime(jobs_stored['Ad Date'])
 jobs_stored.sort_values(by=['Ad Date'], inplace=True)
 jobs_stored.drop_duplicates(subset=['Job Title', 'Company', 'Location'],

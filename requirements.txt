@@ -37,6 +37,7 @@ regex
 sqlalchemy
 pymssql
 postgres
+psycopg
 
 # frontend
 streamlit
