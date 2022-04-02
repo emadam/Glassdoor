@@ -220,9 +220,5 @@ message.empty()
 
 agree = st.checkbox('Show DataFrame first rows')
 if agree:
-    df_message = st.info("Loading DataFrame")
     with st.spinner('Please Wait...'):
         st.dataframe(jobs_stored.head(10))
-    df_message.info('Done!')
-    time.sleep(3)
-    df_message.empty()
