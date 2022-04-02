@@ -190,7 +190,7 @@ ax[1, 1].pie(jobs_stored['Seniority'].value_counts(),
              shadow=True,
              startangle=0)
 ax[1, 1].set_title('Job Ads seniority level count')
-fig.savefig("glassdoor" + np.datetime64(date.today()).astype('str') + ".png")
+# fig.savefig("glassdoor" + np.datetime64(date.today()).astype('str') + ".png")
 
 st.set_page_config(page_title='Data Analyst Job: Market Analysis',
                    page_icon='favicon.png',
@@ -206,4 +206,5 @@ st.markdown(""" <style>
 
 st.title('Data Analyst Job: Market Analysis')
 st.markdown('Based on job ads on Glassdoor')
-st.image('glassdoor2022-04-01.png', use_column_width='always', output_format='JPEG', caption='Created by EMAD AMINMOGHADAM')
+# st.image('glassdoor2022-04-01.png', use_column_width='always', output_format='JPEG', caption='Created by EMAD AMINMOGHADAM')
+st.pyplot(fig)
