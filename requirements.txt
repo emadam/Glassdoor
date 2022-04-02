@@ -41,3 +41,4 @@ psycopg
 
 # frontend
 streamlit
+streamlit-pandas-profiling

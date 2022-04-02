@@ -107,6 +107,9 @@ jobs_stored['Seniority'] = jobs_stored['Job Title'].apply(
              'Internship' if x.find('Internship') != -1 else np.nan))))))
 jobs_stored.dropna(subset=['Ad Date'], how='all', inplace=True)
 
+pr = jobs_stored.profile_report()
+
+
 plt.style.use('seaborn-whitegrid')
 sns.set()
 fig, ax = plt.subplots(2, 2)
@@ -205,6 +208,8 @@ st.markdown(""" <style>
 
 
 st.title('Data Analyst Job: Market Analysis')
-st.markdown('Based on job ads on Glassdoor')
+st.markdown('Based on job ads on Glassdoor 👇')
 # st.image('glassdoor2022-04-01.png', use_column_width='always', output_format='JPEG', caption='Created by EMAD AMINMOGHADAM')
 st.pyplot(fig)
+st.success('Page loaded successfully!')
+st_profile_report(pr)
