@@ -34,8 +34,6 @@ HOST = os.getenv('host')
 
 engine = create_engine(
     f"postgresql://{USERNAME}:{PASSWORD}@{HOST}:5432/{DATABASE}")
-df = pd.read_csv(r'/home/emad/code/emadam/glassdoor/glassdoor/glassdoor/data/data_db.csv')
-df.to_sql("job_data", engine, if_exists='append', index=False)
 
 headers = {
     "User-Agent":
