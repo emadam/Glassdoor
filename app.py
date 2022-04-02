@@ -32,6 +32,11 @@ USERNAME = os.getenv('username')
 PASSWORD = os.getenv('password')
 HOST = os.getenv('host')
 
+engine = create_engine(
+    f"postgresql://{USERNAME}:{PASSWORD}@{HOST}:5432/{DATABASE}")
+df = pd.read_csv(r'/home/emad/code/emadam/glassdoor/glassdoor/glassdoor/data/data_db.csv')
+df.to_sql("job_data", engine, if_exists='append', index=False)
+
 headers = {
     "User-Agent":
     "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
@@ -62,10 +67,6 @@ job_data = job_data.rename(
         5: 'Ad Date'
     })
 job_data['Ad Date'] = pd.to_datetime(job_data['Ad Date'])
-
-engine = create_engine(
-    f"postgresql://{USERNAME}:{PASSWORD}@{HOST}:5432/{DATABASE}"
-)
 
 job_data.to_sql("job_data", engine, if_exists='append', index=False)
 
