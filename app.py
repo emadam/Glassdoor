@@ -13,6 +13,7 @@ from empiricaldist import Cdf
 import seaborn as sns
 from glassdoor.scraper import *
 import streamlit as st
+import time
 
 def salary_convert(salary):
     if salary == 0:
@@ -107,9 +108,6 @@ jobs_stored['Seniority'] = jobs_stored['Job Title'].apply(
              'Internship' if x.find('Internship') != -1 else np.nan))))))
 jobs_stored.dropna(subset=['Ad Date'], how='all', inplace=True)
 
-pr = jobs_stored.profile_report()
-
-
 plt.style.use('seaborn-whitegrid')
 sns.set()
 fig, ax = plt.subplots(2, 2)
@@ -195,21 +193,36 @@ ax[1, 1].pie(jobs_stored['Seniority'].value_counts(),
 ax[1, 1].set_title('Job Ads seniority level count')
 # fig.savefig("glassdoor" + np.datetime64(date.today()).astype('str') + ".png")
 
+
 st.set_page_config(page_title='Data Analyst Job: Market Analysis',
                    page_icon='favicon.png',
                    layout="wide")
+message = st.info("Fetching data from Database...")
+with st.spinner('Please Wait...'):
+    my_bar = st.progress(0)
+    # Remove the menu button from Streamlit
+    st.markdown(""" <style>
+                MainMenu {visibility: hidden;}
+                footer {visibility: hidden;}
+                </style> """,
+                unsafe_allow_html=True)
+    my_bar.progress(25)
+    st.title('Data Analyst Job: Market Analysis')
+    st.markdown('Based on job ads on Glassdoor 👇')
+    my_bar.progress(50)
+    # st.image('glassdoor2022-04-01.png', use_column_width='always', output_format='JPEG', caption='Created by EMAD AMINMOGHADAM')
+    st.pyplot(fig)
+    my_bar.progress(100)
+    my_bar.empty()
+message.info('Done!')
+time.sleep(3)
+message.empty()
 
-# Remove the menu button from Streamlit
-st.markdown(""" <style>
-            MainMenu {visibility: hidden;}
-            footer {visibility: hidden;}
-            </style> """,
-            unsafe_allow_html=True)
-
-
-st.title('Data Analyst Job: Market Analysis')
-st.markdown('Based on job ads on Glassdoor 👇')
-# st.image('glassdoor2022-04-01.png', use_column_width='always', output_format='JPEG', caption='Created by EMAD AMINMOGHADAM')
-st.pyplot(fig)
-st.success('Page loaded successfully!')
-st_profile_report(pr)
+agree = st.checkbox('Show DataFrame first rows')
+if agree:
+    df_message = st.info("Loading DataFrame")
+    with st.spinner('Please Wait...'):
+        st.dataframe(jobs_stored.head(10))
+    df_message.info('Done!')
+    time.sleep(3)
+    df_message.empty()
