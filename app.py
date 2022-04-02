@@ -112,11 +112,11 @@ sns.set()
 fig, ax = plt.subplots(2, 2)
 fig.set_size_inches(16, 11)
 min_salary = jobs_stored['Min_Salary']
-# before_Date = jobs_stored['Ad Date'] < pd.to_datetime('2021-10-15')
-# ax[0, 0].plot(Cdf.from_seq(min_salary[before_Date].dropna()),
-#               label='Before 2021 October 15')
-# ax[0, 0].plot(Cdf.from_seq(min_salary[~before_Date].dropna()),
-#               label='After 2021 October 15')
+before_Date = jobs_stored['Ad Date'] < pd.to_datetime('2022-01-01')
+ax[0, 0].plot(Cdf.from_seq(min_salary[before_Date].dropna()),
+              label='Before 2022')
+ax[0, 0].plot(Cdf.from_seq(min_salary[~before_Date].dropna()),
+              label='After 2022')
 x_min = np.sort(jobs_stored['Min_Salary'].dropna())
 y_min = np.arange(1, len(x_min) + 1) / len(x_min)
 x_max = np.sort(jobs_stored['Max_Salary'].dropna())
@@ -124,11 +124,11 @@ y_max = np.arange(1, len(x_max) + 1) / len(x_max)
 pct_list = np.array([25, 50, 75])
 maxpct_val = np.percentile(jobs_stored['Max_Salary'].dropna(), pct_list)
 minpct_val = np.percentile(jobs_stored['Min_Salary'].dropna(), pct_list)
-# ax[0, 0].set_ylabel('CDF')
-# ax[0, 0].set_title(
-#     'Distribution of minimum salary of "Data Analyst" jobs on Glassdoor')
-# ax[0, 0].legend()
-# ax[0, 0].set_xlabel('Estimated salary')
+ax[0, 0].set_ylabel('CDF')
+ax[0, 0].set_title(
+    'Distribution of minimum salary of "Data Analyst" jobs on Glassdoor')
+ax[0, 0].legend()
+ax[0, 0].set_xlabel('Estimated salary')
 
 ax[0, 1].plot(x_min,
               y_min,
