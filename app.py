@@ -218,7 +218,7 @@ message.info('Done!')
 time.sleep(3)
 message.empty()
 
-agree = st.checkbox('Show DataFrame first rows')
+agree = st.checkbox('Show DataFrame recent records')
 if agree:
     with st.spinner('Please Wait...'):
-        st.dataframe(jobs_stored.head(10))
+        st.dataframe(jobs_stored.tail(10))
