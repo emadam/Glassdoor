@@ -112,6 +112,13 @@ plt.style.use('seaborn-whitegrid')
 sns.set()
 fig, ax = plt.subplots(2, 2)
 fig.set_size_inches(16, 11)
+# set the spacing between subplots
+plt.subplots_adjust(left=0.1,
+                    bottom=0.1,
+                    right=0.9,
+                    top=0.9,
+                    wspace=0.4,
+                    hspace=0.4)
 min_salary = jobs_stored['Min_Salary']
 before_Date = jobs_stored['Ad Date'] < pd.to_datetime('2022-01-01')
 ax[0, 0].plot(Cdf.from_seq(min_salary[before_Date].dropna()),
@@ -127,7 +134,9 @@ maxpct_val = np.percentile(jobs_stored['Max_Salary'].dropna(), pct_list)
 minpct_val = np.percentile(jobs_stored['Min_Salary'].dropna(), pct_list)
 ax[0, 0].set_ylabel('CDF')
 ax[0, 0].set_title(
-    'Distribution of minimum salary of "Data Analyst" jobs on Glassdoor')
+    'Distribution of minimum salary of "Data Analyst" jobs on Glassdoor',
+    fontweight="bold",
+    pad=20)
 ax[0, 0].legend()
 ax[0, 0].set_xlabel('Estimated salary')
 
@@ -165,7 +174,9 @@ ax[0, 1].annotate(
 )
 ax[0, 1].set_ylabel('ECDF')
 ax[0, 1].set_title(
-    'Distribution of min and max salary of "Data Analyst" on Glassdoor')
+    'Distribution of min and max salary of "Data Analyst" on Glassdoor',
+    fontweight="bold",
+    pad=20)
 ax[0, 1].legend()
 ax[0, 1].set_xlabel('Estimated salary')
 
@@ -182,7 +193,8 @@ ax[1, 0].tick_params(axis='x',
 ax[1, 0].set_xlabel('Date of Advertisement', labelpad=0.0, color='magenta')
 ax[1, 0].set_ylabel('Number of Ads', color='purple')
 ax[1, 0].set_title('\'Data Analyst Job\' Advertisements in Glassdoor website',
-                   color='limegreen')
+                   fontweight="bold",
+                   pad=20)
 
 ax[1, 1].pie(jobs_stored['Seniority'].value_counts(),
              labels=jobs_stored['Seniority'].dropna().unique(),
@@ -190,7 +202,7 @@ ax[1, 1].pie(jobs_stored['Seniority'].value_counts(),
              autopct='%1.1f%%',
              shadow=True,
              startangle=0)
-ax[1, 1].set_title('Job Ads seniority level count')
+ax[1, 1].set_title('Seniority of job ads(percent)', fontweight="bold", pad=20)
 # fig.savefig("glassdoor" + np.datetime64(date.today()).astype('str') + ".png")
 
 
