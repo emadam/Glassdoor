@@ -220,9 +220,22 @@ with st.spinner('Please Wait...'):
                 unsafe_allow_html=True)
     my_bar.progress(25)
     st.title('Data Analyst Job: Market Analysis')
-    st.markdown('Based on job ads on Glassdoor 👇')
     my_bar.progress(50)
-    # st.image('glassdoor2022-04-01.png', use_column_width='always', output_format='JPEG', caption='Created by EMAD AMINMOGHADAM')
+    st.markdown("""
+    ## Project Description 👇
+
+    This is a personal effort where I researched *"Data Analyst"* job openings in
+    Melbourne. As a result, this project shows minimum and maximum salary of a
+    **Data Analyst in Melbourne**, Australia according to job advertisements gathered
+    from [https://www.glassdoor.com.au/](https://www.glassdoor.com.au/) and
+    saves the results in a *PostgreSQL* database in order to have historical data
+    for further analysis.
+
+""")
+    st.info(
+        '💡  The cumulative distribution function (CDF) of random variable X is defined as FX(x)=P(X≤x), for all x∈R.'
+    )
+
     st.pyplot(fig)
     my_bar.progress(100)
     my_bar.empty()
@@ -233,4 +246,7 @@ message.empty()
 agree = st.checkbox('Show DataFrame recent records')
 if agree:
     with st.spinner('Please Wait...'):
-        st.dataframe(jobs_stored.tail(10))
+        cm = sns.color_palette("coolwarm_r", as_cmap=True)
+        df = jobs_stored.reset_index(
+            drop=True).tail(10).sort_values(by='Ad Date', ascending=False).style.background_gradient(cmap=cm)
+        st.write(df)
