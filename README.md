@@ -1,7 +1,7 @@
 
 # 📚 Glassdoor
 
-This is a personal effort where I researched "Data Analyst" job openings in Melbourne. As a result, this project shows minimum and maximum salary of a Data Analyst in Melbourne, Australia according to job advertisements gathered from https://www.glassdoor.com.au/ and saves the results in a SQL database in order to have historical data for further analysis. 
+This is a personal effort where I researched "Data Analyst" job openings in Melbourne. As a result, this project shows minimum and maximum salary of a Data Analyst in Melbourne, Australia according to job advertisements gathered from https://www.glassdoor.com.au/ and saves the results in a PostgreSQL database in order to have historical data for further analysis. 
 
 ![image](https://github.com/emadam/glassdoor/blob/master/glassdoor2022-03-28.png)
 <br>
